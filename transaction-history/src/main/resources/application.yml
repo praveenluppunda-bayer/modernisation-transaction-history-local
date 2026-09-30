@@ -1,0 +1,31 @@
+server:
+  port: ${PORT:8080}
+spring:
+  application:
+    name: transaction-history
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:ledger;MODE=PostgreSQL;DB_CLOSE_DELAY=-1}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.h2.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+app:
+  version: ${VERSION:2.0.0-local}
+  local-routing-num: ${LOCAL_ROUTING_NUM:987654321}
+  pub-key-path: ${PUB_KEY_PATH:standins/keys/jwtRS256.key.pub}
+  history-limit: ${HISTORY_LIMIT:100}
+  cache-size: ${CACHE_SIZE:1000000}
+  standin:
+    seed-ledger: true
+    event-bus: in-process
